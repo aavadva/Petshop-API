@@ -1,0 +1,13 @@
+services:
+  petshop-db:
+    platform: linux/x86_64
+    image: mariadb:latest
+    container_name: petshop-db
+    environment:
+      MARIADB_USER: petshop-user
+      MARIADB_PASSWORD: password
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: db
+    ports:
+      - "3306:3306"
+
