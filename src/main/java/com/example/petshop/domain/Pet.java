@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 public class Pet {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "pet_id")
     private Integer petId;
     private String name;
     private String animal;

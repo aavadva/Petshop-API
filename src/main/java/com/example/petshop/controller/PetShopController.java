@@ -2,6 +2,7 @@ package com.example.petshop.controller;
 
 import com.example.petshop.domain.Address;
 import com.example.petshop.domain.Pet;
+import com.example.petshop.domain.Purchase;
 import com.example.petshop.dto.NewPetDto;
 import com.example.petshop.service.PetService;
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +61,11 @@ public class PetShopController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping(path = "/purchase")
+    public List<Purchase> getAllPurchases() {
+        return service.getAllPurchases();
+    }
+
 
     @GetMapping(path = "/get/{petId}")
     public Pet getPet(@PathVariable Integer petId) {
@@ -68,9 +74,18 @@ public class PetShopController {
 
     }
 
+    @GetMapping(path = "/get/purchase/{customerId}")
+    public Purchase getPurchase(@PathVariable Integer customerId) {
+        logger.log(Level.INFO, "Pet message received");
+        return service.getPurchase(customerId);
+
+    }
+
     @PostMapping(path = "/addpet")
     public void addPet(@RequestBody Pet pet) {service.postPet(pet);}
 
+    @PostMapping(path = "/purchase")
+    public void purchaseConfirmed(@RequestBody Purchase purchase) {service.postPurchase(purchase);}
 
     @PostMapping(path = "/addpets")
     public ResponseEntity<String> addMultiplePets(@RequestBody List<Pet> pet) {
