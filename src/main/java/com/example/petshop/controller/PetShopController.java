@@ -45,7 +45,6 @@ public class PetShopController {
         log.info("active petshop profile: {}", message);
     }
 
-
     private NewPetDto convertEntityToDto(Pet pet, Address address){
 
         NewPetDto newPetDto = new NewPetDto();
@@ -65,7 +64,6 @@ public class PetShopController {
     public List<Purchase> getAllPurchases() {
         return service.getAllPurchases();
     }
-
 
     @GetMapping(path = "/get/{petId}")
     public Pet getPet(@PathVariable Integer petId) {
