@@ -22,7 +22,6 @@ public class Pet {
     private String animal;
     private int age;
     private float price;
-
 //    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_add_id")
