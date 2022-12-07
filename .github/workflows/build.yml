@@ -24,3 +24,9 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
+
+      - name: Save state
+        run: echo "{name}={value}" >> $GITHUB_STATE
+
+      - name: Set output
+        run: echo "{name}={value}" >> $GITHUB_OUTPUT
