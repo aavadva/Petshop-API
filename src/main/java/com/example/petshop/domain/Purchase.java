@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -20,7 +22,9 @@ public class Purchase {
     @Column(name = "cust_id")
     private Integer customerId;
     private String customerName;
-    //Time of purchase
+
+    @CreationTimestamp
+    private LocalDateTime localDateTime;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_pet_id")

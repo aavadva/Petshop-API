@@ -5,7 +5,10 @@ import com.example.petshop.domain.Purchase;
 import com.example.petshop.repository.PetRepository;
 import com.example.petshop.repository.PurchaseRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +28,8 @@ public class PetService {
         this.purchaseRepository = purchaseRepository;
     }
 
-
+    @CacheEvict(value="pet-cache",key = "'PetCache' + #petId", beforeInvocation = true)
+    @Cacheable(value="pet-cache",key = "'PetCache' + #petId")
     public Pet getPet(Integer petId) {
 
         Optional<Pet> pet = petRepository.findById(petId);
@@ -34,8 +38,10 @@ public class PetService {
 
     }
 
-    public Purchase getPurchase(Integer customerId) {
+    @Cacheable(value="purchase-cache",key = "'PurchaseCache' + #customerId")
+    public Purchase getPurchase(Integer customerId) throws InterruptedException {
 
+        Thread.sleep(5000);
         Optional<Purchase> purchase = purchaseRepository.findById(customerId);
 
         return purchase.orElseThrow(() -> {throw new RuntimeException();});
@@ -50,6 +56,7 @@ public class PetService {
     public void postPurchase(Purchase purchase) {
         purchaseRepository.save(purchase);
     }
+
 
     public List<Pet> getAllPets() {
 
