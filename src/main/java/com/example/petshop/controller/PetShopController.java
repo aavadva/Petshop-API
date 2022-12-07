@@ -75,7 +75,7 @@ public class PetShopController {
     }
 
     @GetMapping(path = "/get/purchase/{customerId}")
-    public Purchase getPurchase(@PathVariable Integer customerId) {
+    public Purchase getPurchase(@PathVariable Integer customerId) throws InterruptedException {
         logger.log(Level.INFO, "Pet message received");
         return service.getPurchase(customerId);
 
@@ -85,7 +85,12 @@ public class PetShopController {
     public void addPet(@RequestBody Pet pet) {service.postPet(pet);}
 
     @PostMapping(path = "/purchase")
-    public void purchaseConfirmed(@RequestBody Purchase purchase) {service.postPurchase(purchase);}
+    public ResponseEntity<String> purchaseConfirmed(@RequestBody Purchase purchase) {
+
+        service.postPurchase(purchase);
+        return ResponseEntity.ok("Data Saved");
+
+    }
 
     @PostMapping(path = "/addpets")
     public ResponseEntity<String> addMultiplePets(@RequestBody List<Pet> pet) {
